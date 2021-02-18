@@ -11,7 +11,7 @@ env:
   CAMINHO_PROJETO_WEBAPP: ./ConversorDistancias
   CAMINHO_PROJETO_TESTES: ./ConversorDistancias.Testes
   NOME_WEBAPP: groffe-conversordistancias
-  CAMINHO_SCREENSHOTS_SELENIUM: ./ConversorDistancias.Testes/bin/Debug/net5.0
+  CAMINHO_SCREENSHOTS_SELENIUM: ./ConversorDistancias.Testes/bin/Debug/net5.0/*.png
 
 jobs:
   build-docker-tests-push:
