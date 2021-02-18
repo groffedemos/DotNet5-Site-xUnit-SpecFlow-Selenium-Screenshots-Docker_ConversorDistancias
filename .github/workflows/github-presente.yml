@@ -11,6 +11,7 @@ env:
   CAMINHO_PROJETO_WEBAPP: ./ConversorDistancias
   CAMINHO_PROJETO_TESTES: ./ConversorDistancias.Testes
   NOME_WEBAPP: groffe-conversordistancias
+  CaminhoScreenshots: ./Screenshots/
 
 jobs:
   build-docker-tests-push:
@@ -33,14 +34,14 @@ jobs:
       run: |
         docker run --name site-testes -p 1234:80 -d ${{ env.IMAGEM_DOCKERHUB }}:latest
         docker container ls
-        
+
+    - name: Criação do diretório em que serão gravados os Screenshots gerados pelo Selenium WebDriver
+      run: mkdir ${{ env.CaminhoScreenshots }}
+
     - name: Testes com Selenium WebDriver + Chrome Driver
       env:
-        CaminhoScreenshots: ./Screenshots
         UrlTelaConversaoDistancias: http://localhost:1234
-      run: |
-        mkdir ${{ env.CaminhoScreenshots }}
-        dotnet test ${{ env.CAMINHO_PROJETO_TESTES }} --verbosity minimal --logger:"html;LogFileName=resultado-testes.html"
+      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTES }} --verbosity minimal --logger:"html;LogFileName=resultado-testes.html"
       
     - name: Login no Docker Hub
       uses: docker/login-action@v1.8.0
@@ -62,7 +63,17 @@ jobs:
         name: resultado-erros-testes
         path: ${{ env.CAMINHO_RELATORIO_ERROS }}
         retention-days: 30
-    
+
+    - name: Upload como Artifact dos Screenshots gerados pelo Selenium WebDriver
+      uses: actions/upload-artifact@v2.2.2
+      if: failure()
+      env:
+        CAMINHO_SCREENSHOTS: ${{ env.CaminhoScreenshots }}/*.png
+      with:
+        name: screenshots-selenium
+        path: ${{ env.CAMINHO_SCREENSHOTS }}
+        retention-days: 30
+
     - name: Notificação de erro na execução
       if: failure()
       shell: pwsh
