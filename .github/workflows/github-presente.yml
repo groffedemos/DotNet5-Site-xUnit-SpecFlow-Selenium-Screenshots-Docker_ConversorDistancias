@@ -10,7 +10,7 @@ env:
   IMAGEM_DOCKERHUB: ${{ secrets.DOCKERHUB_USERNAME }}/sitedistancias-githubpresente
   CAMINHO_PROJETO_WEBAPP: ./ConversorDistancias
   CAMINHO_PROJETO_TESTES: ./ConversorDistancias.Testes
-  NOME_WEBAPP: groffe-conversordistancias
+  NOME_WEBAPP: groffe-githubpresente
   CAMINHO_SCREENSHOTS_SELENIUM: ./ConversorDistancias.Testes/bin/Debug/net5.0/*.png
 
 jobs:
