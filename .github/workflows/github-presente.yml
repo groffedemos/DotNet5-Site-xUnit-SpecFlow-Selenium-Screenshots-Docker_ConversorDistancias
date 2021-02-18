@@ -11,7 +11,7 @@ env:
   CAMINHO_PROJETO_WEBAPP: ./ConversorDistancias
   CAMINHO_PROJETO_TESTES: ./ConversorDistancias.Testes
   NOME_WEBAPP: groffe-conversordistancias
-  CaminhoScreenshots: ./Screenshots/
+  CAMINHO_SCREENSHOTS_SELENIUM: ./ConversorDistancias.Testes/bin/Debug/net5.0
 
 jobs:
   build-docker-tests-push:
@@ -67,11 +67,9 @@ jobs:
     - name: Upload como Artifact dos Screenshots gerados pelo Selenium WebDriver
       uses: actions/upload-artifact@v2.2.2
       if: failure()
-      env:
-        CAMINHO_SCREENSHOTS: ${{ env.CaminhoScreenshots }}/*.png
       with:
         name: screenshots-selenium
-        path: ${{ env.CAMINHO_SCREENSHOTS }}
+        path: ${{ env.CAMINHO_SCREENSHOTS_SELENIUM }}
         retention-days: 30
 
     - name: Notificação de erro na execução
