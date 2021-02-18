@@ -16,7 +16,7 @@ env:
 jobs:
   build-docker-tests-push:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
@@ -80,7 +80,7 @@ jobs:
   deployment-azwebapp:
     needs: [build-docker-tests-push]
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Azure Login - Conectando com Credenciais no Azure
