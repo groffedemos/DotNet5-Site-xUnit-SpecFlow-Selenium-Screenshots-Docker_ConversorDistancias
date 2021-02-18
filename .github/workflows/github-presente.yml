@@ -36,7 +36,9 @@ jobs:
     - name: Testes com Selenium WebDriver + Chrome Driver
       env:
         UrlTelaConversaoDistancias: http://localhost:1234
-      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTES }} --verbosity minimal --logger:"html;LogFileName=resultado-testes.html"
+      run: |
+        ls
+        dotnet test ${{ env.CAMINHO_PROJETO_TESTES }} --verbosity minimal --logger:"html;LogFileName=resultado-testes.html"
       
     - name: Login no Docker Hub
       uses: docker/login-action@v1.8.0
